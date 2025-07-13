@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./globals.css";
-import {ThemeModeScript} from "flowbite-react";
+import { ThemeModeScript } from "flowbite-react";
 
 export default function RootLayout({
   children,
@@ -10,13 +10,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-    <head>
-        <title>Tag</title>
+      <head>
+        <title>Controle de acesso</title>
         <ThemeModeScript />
-    </head>
-      <body>
-        {children}
-      </body>
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

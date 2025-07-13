@@ -1,31 +1,43 @@
-import {database} from "@/database";
+import { database } from "@/database";
 
 export async function OPTIONS() {
-    return new Response(null, {
-        status: 204,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        },
-    });
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
 }
 
 export async function GET(request: Request) {
-    const url = new URL(request.url);
-    const uid = url.searchParams.get("uid");
+  const url = new URL(request.url);
+  const uid = url.searchParams.get("uid");
 
-    if(uid) {
-        const user = await database.get('tag:' + uid)
-        console.log({ user })
-    }
+  if (uid) {
+    const user = await database.get("tag:" + uid);
 
-    return new Response("SUCCESS", {
+    if (user) {
+      console.log({ user });
+
+      return new Response("SUCCESS", {
         status: 200,
         headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
-    });
+      });
+    }
+  }
+
+  return new Response("ERROR", {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
 }
