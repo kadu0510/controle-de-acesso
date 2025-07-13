@@ -3,6 +3,7 @@ import { RegisteredUsers } from "@/features/registered-users";
 import { Button } from "flowbite-react";
 import { HiPlus } from "react-icons/hi";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default async function Home() {
   async function loadUsers() {
@@ -34,7 +35,9 @@ export default async function Home() {
           <HiPlus className="h-6 w-6" />
         </Button>
       </div>
-      <RegisterModal />
+      <Suspense fallback={<></>}>
+        <RegisterModal />
+      </Suspense>
     </main>
   );
 }
